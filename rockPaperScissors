@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Rock, paper, scissors.</title>
+  </head>
+  <body>
+    <script>
+        function computerPlay(){
+            let pick = Math.floor(Math.random() * 3);
+
+            switch(pick){
+                case 0: return 'rock';
+                break;
+
+                case 1: return 'paper';
+                break;
+
+                case 2: return 'scissors';
+            }
+        }
+        function singleRound(playerSelection, computerSelection){
+            switch(playerSelection){
+                case 'rock':
+                  switch(computerSelection){
+                      case 'rock':
+                        return 0;
+                      break;
+
+                      case 'paper':
+                        return 2;
+                      break;
+
+                      case 'scissors':
+                        return 1;
+                  }
+                break;
+
+                case 'paper':
+                  switch(computerSelection){
+                      case 'rock':
+                        return 1;
+                      break;
+
+                      case 'paper':
+                        return 0;
+                      break;
+
+                      case 'scissors':
+                        return 2;
+                  }
+                break;
+
+                case 'scissors':
+                switch(computerSelection){
+                      case 'rock':
+                        return 2;
+                      break;
+
+                      case 'paper':
+                        return 1;
+                      break;
+
+                      case 'scissors':
+                        return 0;
+                  }           
+            }
+        }
+
+        function game(){
+            let counter = 1, p1 = 0, p2 = 0;
+
+            while(counter <= 5){
+                let playerSelection = prompt('Rock, paper or scissors?'), computerSelection = computerPlay();
+                playerSelection = playerSelection.toLowerCase();
+                console.log(`Round ${counter}`);
+                switch(singleRound(playerSelection, computerSelection)){
+                    case 0:
+                      console.log(`It's a tie! Both picked ${playerSelection}.`);
+                      ++p1, ++p2, ++counter;
+                      break;
+
+                    case 1:
+                      if(playerSelection === 'scissors'){
+                          console.log(`You win! scissors beat ${computerSelection}.`);
+                          ++p1, ++counter;
+                      }else{
+                          console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+                          ++p1, ++counter;
+                      }
+                      break;
+
+                    case 2:
+                      if(computerSelection === 'scissors'){
+                          console.log(`You lose! scissors beat ${playerSelection}.`);
+                          ++p2, ++counter;
+                      }else{
+                          console.log(`You lose! ${computerSelection} beats ${playerSelection}.`);
+                          ++p2, ++counter;
+                      }
+                }
+            }
+            if(p1 === p2){
+                console.log(`After 5 rounds of play both players are tied with ${p1} wins each!`);
+            }
+            if(p1 > p2){
+                console.log(`After 5 rounds of play you are the winner with ${p1} wins to ${p2}.`);
+            }
+            if(p1 < p2){
+                console.log(`After 5 rounds of play you are the loser with ${p2} wins to ${p1}.`);
+            }
+        }
+    </script>
+  </body>
+</html>
